@@ -19,7 +19,14 @@ class Productsservice {
     }
   }
 
-  create() {}
+  create(data) {
+    const newProduct = {
+      id: faker.fakerES_MX.string.uuid(),
+      ...data,
+    };
+    this.products.push(newProduct);
+    return newProduct;
+  }
 
   find() {
     return this.products;
@@ -30,12 +37,32 @@ class Productsservice {
   }
 
   findCategory(category) {
-    return this.products.filter((item) => item.category == category);
+    return this.products.filter((item) => item.category === category);
   }
 
-  update() {}
+  update(id, changes) {
+    const index = this.products.findIndex((item) => item.id === id);
+    if (index === -1) {
+      throw new Error('Producto No Encontrado');
+    }
 
-  delete() {}
+    const product = this.products[index];
+    this.products[index] = {
+      ...product,
+      ...changes,
+    };
+    return this.products[index];
+  }
+
+  delete(id) {
+    const index = this.products.findIndex((item) => item.id === id);
+    if (index === -1) {
+      throw new Error('Error!!!!!');
+    }
+
+    this.products.splice(index, 1);
+    return { id };
+  }
 }
 
 module.exports = Productsservice;

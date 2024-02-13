@@ -9,47 +9,53 @@ router.get('/', (req, res) => {
   res.json(products);
 });
 
-router.get('/filter', (req, res) => {
-  res.send('Hola soy un filter');
+// router.get('/filter', (req, res) => {
+//   res.send('Hola soy un filter');
+// });
+
+router.get('/category/:category', (req, res) => {
+  const { category } = req.params;
+  const productsByCategory = service.findCategory(category);
+  if (productsByCategory != '') {
+    res.status(201).json(productsByCategory);
+  } else {
+    res.status(401).json({
+      message: 'categoria no encontrada',
+    });
+  }
 });
 
 router.get('/:id', (req, res) => {
   const { id } = req.params;
   const product = service.findOne(id);
-  res.json(product);
-});
-
-router.get('/:category', (req, res) => {
-  const { category } = req.params;
-  const productsByCategory = service.findCategory(category);
-  res.json(productsByCategory);
+  if (product) {
+    res.status(200).json(product);
+  } else {
+    res.status(404).json({ message: 'Producto No encontrando' });
+  }
 });
 
 router.post('/', (req, res) => {
   const body = req.body;
-  res.status(201).json({
-    message: 'Producto Creado',
-    data: body,
-  });
+  const newProduct = service.create(body);
+  res.status(201).json(newProduct);
 });
 
 router.patch('/:id', (req, res) => {
   const { id } = req.params;
   const body = req.body;
-  res.json({
-    message: 'Producto Actualizado Satisfactoriamente',
-    data: body,
-    id,
-  });
+  const updateProduct = service.update(id, body);
+  res.status(201).json(updateProduct);
 });
 
 router.delete('/:id', (req, res) => {
-  const { id } = req.params;
-
-  res.json({
-    message: 'Producto Eliminado Exitosamente',
-    id,
-  });
+  try {
+    const id = req.params.id;
+    const rta = service.delete(id);
+    res.status(200).json({ message: 'Producto Eliminado Exitosamente', rta });
+  } catch (error) {
+    res.status(404).json({ message: 'Producto no encontrado' });
+  }
 });
 
 module.exports = router;
