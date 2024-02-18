@@ -4,8 +4,8 @@
   "description": "Proyecto para aprender desarrollo backend con Node.js y Express.js, con el cual se desarrollarán rutas, servidores y middlewares de Express.js, construcción de una API, manipulación de errores, validación de datos y deploy.",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
-    "start": "node index.js",
+    "dev": "nodemon api/index.js",
+    "start": "node api/index.js",
     "lint": "eslint"
   },
   "keywords": [],
@@ -20,6 +20,13 @@
   },
   "dependencies": {
     "@faker-js/faker": "^8.4.1",
-    "express": "^4.18.2"
+    "@hapi/boom": "^10.0.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "helmet": "^7.1.0",
+    "joi": "^17.12.1"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }
