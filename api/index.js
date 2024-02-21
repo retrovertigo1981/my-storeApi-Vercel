@@ -28,4 +28,6 @@ routerApi(app);
 app.use(boomErrorHandler);
 app.use(errorHandler);
 
-app.listen(port);
+app.listen(port, () => {
+  console.log(`App escuchando en puerto ${port}`);
+});

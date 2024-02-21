@@ -14,8 +14,8 @@ class Productsservice {
         id: faker.fakerES_MX.string.uuid(),
         name: faker.fakerES_MX.commerce.productName(),
         price: parseInt(faker.fakerES_MX.commerce.price(), 10),
-        category: faker.fakerES_MX.commerce.department(),
         image: faker.fakerES_MX.image.urlPicsumPhotos(),
+        isBlock: faker.fakerES_MX.datatype.boolean(),
       });
     }
   }
@@ -46,15 +46,15 @@ class Productsservice {
     return product;
   }
 
-  async findCategory(category) {
-    const categories = this.products.filter(
-      (item) => item.category === category,
-    );
-    if (!categories) {
-      throw boom.notFound('Category not found');
-    }
-    return categories;
-  }
+  // async findCategory(category) {
+  //   const categories = this.products.filter(
+  //     (item) => item.category === category,
+  //   );
+  //   if (!categories) {
+  //     throw boom.notFound('Category not found');
+  //   }
+  //   return categories;
+  // }
 
   async update(id, changes) {
     const index = this.products.findIndex((item) => item.id === id);
