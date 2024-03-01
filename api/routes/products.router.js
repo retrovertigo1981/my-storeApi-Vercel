@@ -15,26 +15,6 @@ router.get('/', async (req, res) => {
   res.json(products);
 });
 
-// router.get(
-//   '/category/:category',
-//   validatorHanlder(getCategorySchema, 'params'),
-//   async (req, res, next) => {
-//     try {
-//       const { category } = req.params;
-//       const productsByCategory = await service.findCategory(category);
-//       if (productsByCategory != '') {
-//         res.status(201).json(productsByCategory);
-//       } else {
-//         res.status(401).json({
-//           message: 'Categoria no Econtrada',
-//         });
-//       }
-//     } catch (error) {
-//       next(error);
-//     }
-//   },
-// );
-
 router.get(
   '/:id',
   validatorHanlder(getProductSchema, 'params'),
