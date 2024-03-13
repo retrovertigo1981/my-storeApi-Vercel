@@ -1,16 +1,17 @@
 const faker = require('@faker-js/faker');
 const boom = require('@hapi/boom');
-const pool = require('../utils/postgres.pool');
+// const pool = require('../utils/postgres.pool');
+const sequelize = require('../utils/sequelize');
 
 class Productsservice {
   constructor() {
     this.products = [];
     this.generate();
-    this.pool = pool;
-    this.pool.on('error', (err) => {
-      console.error('Unexpected error on idle client', err);
-      process.exit(-1);
-    });
+    // this.pool = pool;
+    // this.pool.on('error', (err) => {
+    //   console.error('Unexpected error on idle client', err);
+    //   process.exit(-1);
+    // });
   }
 
   generate() {
@@ -37,8 +38,8 @@ class Productsservice {
 
   async find() {
     const query = 'SELECT * FROM tasks';
-    const response = await this.pool.query(query);
-    return response.rows;
+    const [data] = await sequelize.query(query);
+    return data;
   }
 
   async findOne(id) {

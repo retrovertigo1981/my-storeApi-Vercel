@@ -6,6 +6,7 @@ const helmet = require('helmet');
 const {
   errorHandler,
   boomErrorHandler,
+  ormValitationHandler,
 } = require('./middlewares/error.handler');
 const app = express();
 const port = process.env.PORT || 3000;
@@ -24,7 +25,7 @@ app.get('/api', (req, res) => {
 });
 
 routerApi(app);
-
+app.use(ormValitationHandler);
 app.use(boomErrorHandler);
 app.use(errorHandler);
 
