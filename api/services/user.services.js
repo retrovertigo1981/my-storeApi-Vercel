@@ -4,13 +4,7 @@ const boom = require('@hapi/boom');
 const { models } = require('../utils/sequelize');
 
 class UserService {
-  constructor() {
-    // this.pool = pool;
-    // this.pool.on('error', (err) => {
-    //   console.error('Unexpected error on idle client', err);
-    //   process.exit(-1);
-    // });
-  }
+  constructor() {}
 
   async create(data) {
     const newUser = await models.User.create(data);
@@ -18,12 +12,15 @@ class UserService {
   }
 
   async find() {
-    const response = await models.User.findAll();
+    const response = await models.User.findAll({
+      include: ['customer'],
+    });
     return response;
   }
 
   async findOne(id) {
-    return { id };
+    const user = await models.User.findByPk(id);
+    return user;
   }
 
   async update(id, changes) {
@@ -34,6 +31,9 @@ class UserService {
 
   async delete(id) {
     const user = await models.User.findByPk(id);
+    if (!user) {
+      throw boom.notFound('Usuario no Encontrado');
+    }
     await user.destroy();
     return { id };
   }

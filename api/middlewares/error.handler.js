@@ -23,6 +23,8 @@ function ormValitationHandler(err, req, res, next) {
       message: err.message,
       errors: err.errors.map((e) => e.message),
     });
+  } else {
+    next(err);
   }
 }
 
