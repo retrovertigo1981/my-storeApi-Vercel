@@ -16,14 +16,14 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Install dependencies
-        run: npm run install
-
-      - name: Start the API
-        run: npm run start
-
       - name: Deploy to Vercel
         run: npx vercel --token ${{secrets.VERCEL_TOKEN}} --prod --name "mystore-api-postgres" --env ${{ secrets.POSTGRES_URL }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Start the API
+        run: npm start
 
       - name: Run migrations
         run: npm run migrations:run
