@@ -6,7 +6,7 @@ const setupModels = require('./../db/models');
 let URI = '';
 
 if (config.isProduction) {
-  URI = config.dbUrl;
+  URI = config.dbURL;
 } else {
   const USER = encodeURIComponent(config.dbUser);
   const PASSWORD = encodeURIComponent(config.dbPassword);
