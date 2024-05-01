@@ -14,7 +14,7 @@ if (config.isProduction) {
 
 const options = {
   dialect: 'postgres',
-  logging: config.isProduction ? console.log : false,
+  logging: config.isProduction ? true : false,
 };
 
 if (config.isProduction) {
