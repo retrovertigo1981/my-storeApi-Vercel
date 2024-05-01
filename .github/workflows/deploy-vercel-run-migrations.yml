@@ -24,6 +24,10 @@ jobs:
 
       - name: Start the API
         run: npm start
+        env:
+          POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
 
       - name: Run migrations
         run: npm run migrations:run
+        env:
+          POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
