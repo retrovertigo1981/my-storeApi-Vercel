@@ -1,0 +1,29 @@
+name: Deploy to Vercel and Run Migrations
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Node.js and npm
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm run install
+
+      - name: Start the API
+        run: npm run start
+
+      - name: Deploy to Vercel
+        run: npx vercel --token ${{secrets.VERCEL_TOKEN}} --prod --name "mystore-api-postgres" --env ${{ secrets.POSTGRES_URL }}
+
+      - name: Run migrations
+        run: npm run migrations:run
