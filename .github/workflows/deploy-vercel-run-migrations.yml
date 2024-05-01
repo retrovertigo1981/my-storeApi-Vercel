@@ -22,10 +22,12 @@ jobs:
       - name: Deploy to Vercel
         run: npx vercel --token ${{secrets.VERCEL_TOKEN}} --prod --name "mystore-api-postgres" --confirm --env ${{ secrets.POSTGRES_URL }}
 
-      - name: Start the API
-        run: npm start
-
       - name: Run migrations
         run: npm run migrations:run
+        env:
+          POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+
+      - name: Start the API
+        run: npm start
         env:
           POSTGRES_URL: ${{ secrets.POSTGRES_URL }}

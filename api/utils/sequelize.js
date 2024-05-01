@@ -13,20 +13,20 @@ if (config.isProduction) {
   URI = `postgres://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${config.dbName}`;
 }
 
-// const options = {
-//   dialect: 'postgres',
-//   logging: config.isProduction ? true : false,
-// };
+const options = {
+  dialect: 'postgres',
+  logging: config.isProduction ? true : false,
+};
 
-// if (config.isProduction) {
-//   options.dialectOptions = {
-//     ssl: {
-//       rejectUnauthorized: false,
-//     },
-//   };
-// }
+if (config.isProduction) {
+  options.dialectOptions = {
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  };
+}
 
-const sequelize = new Sequelize(URI);
+const sequelize = new Sequelize(URI, options);
 
 setupModels(sequelize);
 
