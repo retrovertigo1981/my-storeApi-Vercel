@@ -18,14 +18,6 @@ const options = {
   logging: config.isProduction ? console.log : false,
 };
 
-if (config.isProduction) {
-  options.dialectOptions = {
-    ssl: {
-      rejectUnauthorized: false,
-    },
-  };
-}
-
 const sequelize = new Sequelize(URI, options);
 
 setupModels(sequelize);
