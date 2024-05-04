@@ -29,6 +29,6 @@ app.use(ormValitationHandler);
 app.use(boomErrorHandler);
 app.use(errorHandler);
 
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
   console.log(`App escuchando en puerto ${port}`);
 });
